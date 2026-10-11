@@ -122,6 +122,26 @@ body {
   height: 18px;
 }
 
+.btn-primary {
+  color: #0b0d17;
+  background: linear-gradient(100deg, var(--primary), var(--primary-2));
+  border: none;
+  box-shadow: 0 10px 30px -12px rgba(129, 140, 248, 0.65);
+}
+
+.btn-primary:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 14px 34px -12px rgba(129, 140, 248, 0.75);
+}
+
+.btn-primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+  filter: none;
+  box-shadow: none;
+}
+
+
 /* ---------- Header ---------- */
 .site-header {
   padding: 22px 0;
@@ -313,6 +333,90 @@ body {
   font-size: 0.9rem;
   font-weight: 500;
 }
+
+/* Upload flow (resume + JD + submit) */
+.upload-flow {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.upload-zone.has-file {
+  border-color: rgba(52, 211, 153, 0.4);
+  border-style: solid;
+  background: rgba(52, 211, 153, 0.05);
+}
+
+.selected-name {
+  font-family: var(--mono);
+  font-size: 0.86rem;
+  color: var(--success);
+  word-break: break-all;
+}
+
+/* Job description input */
+.jd-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.jd-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.jd-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.jd-count {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.jd-textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--text);
+  background: rgba(11, 13, 23, 0.5);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 14px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  outline: none;
+}
+
+.jd-textarea::placeholder {
+  color: #6b74a0;
+}
+
+.jd-textarea:focus {
+  border-color: var(--primary);
+  background: rgba(129, 140, 248, 0.05);
+}
+
+.jd-textarea.has-error {
+  border-color: var(--danger);
+}
+
+.analyze-btn {
+  align-self: center;
+  padding: 12px 28px;
+  font-size: 1rem;
+}
+
 
 /* Analyzing */
 .analyzing {
@@ -629,6 +733,12 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+}
+
+.skill-empty {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  padding: 4px 0;
 }
 
 .skill-tag {

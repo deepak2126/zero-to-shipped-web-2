@@ -1,9 +1,9 @@
 {
-  "name": "zero-to-shipped-resume-parser",
+  "name": "zero-to-shipped-frontend",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Mock resume parser landing page — upload a PDF, get a score, present & missing skills.",
+  "description": "React + Vite frontend for resume/JD comparison. Talks to the Express backend in ../backend.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -18,3 +18,4 @@
     "vite": "^5.4.11"
   }
 }
+

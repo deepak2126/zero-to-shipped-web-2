@@ -1,0 +1,15 @@
+# Dependencies
+node_modules
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Uploads (we parse in-memory, but keep this for safety)
+uploads

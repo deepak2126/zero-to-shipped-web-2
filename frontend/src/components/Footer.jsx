@@ -6,7 +6,7 @@ export default function Footer() {
           Built for the <strong>0 to Shipped</strong> series.
         </span>
         <span className="footer-note">
-          This is a mock UI — results are simulated for demo purposes.
+          Keyword matching for now — AI-powered analysis is coming soon.
         </span>
       </div>
     </footer>

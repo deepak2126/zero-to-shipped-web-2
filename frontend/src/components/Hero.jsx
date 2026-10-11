@@ -4,15 +4,14 @@ export default function Hero({ children }) {
       <div className="container">
         <div className="pill">
           <span className="pill-dot"></span>
-          Mock parser · no sign-up required
+          Resume × Job Description match · no sign-up required
         </div>
         <h1 className="hero-title">
-          Know your resume's <span className="gradient-text">real score</span> in seconds.
+          See how your resume <span className="gradient-text">matches the job</span> in seconds.
         </h1>
         <p className="hero-subtitle">
-          Drop in your resume PDF and instantly see a score out of 100, the skills
-          you already have, and the ones holding you back. Fast, private, and
-          completely free to try.
+          Drop in your resume PDF, paste the job description, and instantly see a
+          match score, the skills you already have, and the ones holding you back.
         </p>
         {children}
       </div>

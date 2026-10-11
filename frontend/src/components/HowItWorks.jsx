@@ -3,17 +3,17 @@ export default function HowItWorks() {
     {
       num: 1,
       title: "Upload your PDF",
-      text: "Drag and drop your resume. It never leaves your browser in this demo.",
+      text: "Drop in your resume. We read the text on the server — nothing is stored in your browser.",
     },
     {
       num: 2,
-      title: "We parse it",
-      text: "Our engine reads the text and matches it against in-demand skills.",
+      title: "Paste the job description",
+      text: "Add the role you're targeting so we compare the right skills.",
     },
     {
       num: 3,
-      title: "Get your score",
-      text: "See your score, what you've got, and exactly what to add next.",
+      title: "Get your match score",
+      text: "See your score, what lines up, and exactly which skills to add next.",
     },
   ];
 

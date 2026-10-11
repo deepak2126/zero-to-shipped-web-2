@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-export default function UploadZone({ onFile, error }) {
+export default function UploadZone({ onFile, error, selectedName = "" }) {
   const inputRef = useRef(null);
 
   const openPicker = () => inputRef.current && inputRef.current.click();
@@ -35,12 +35,14 @@ export default function UploadZone({ onFile, error }) {
   const handleChange = (e) => {
     const file = e.target.files && e.target.files[0];
     onFile(file);
+    // Allow re-selecting the same file after removing it.
+    e.target.value = "";
   };
 
   return (
     <div
       id="uploadState"
-      className="upload-zone"
+      className={`upload-zone${selectedName ? " has-file" : ""}`}
       role="button"
       tabIndex={0}
       onClick={openPicker}
@@ -65,15 +67,22 @@ export default function UploadZone({ onFile, error }) {
           <path d="M20 16.5A3.5 3.5 0 0 0 18 10h-1A6 6 0 1 0 6 15" />
         </svg>
       </div>
-      <h3 className="upload-title">Drop your resume here</h3>
+      <h3 className="upload-title">
+        {selectedName ? "Resume ready" : "Drop your resume here"}
+      </h3>
       <p className="upload-hint">
-        or <span className="link">browse files</span> — PDF only, up to 10&nbsp;MB
+        {selectedName ? (
+          <span className="selected-name">{selectedName}</span>
+        ) : (
+          <>
+            or <span className="link">browse files</span> — PDF only, up to 10&nbsp;MB
+          </>
+        )}
       </p>
       {error ? (
         <p id="fileError" className="file-error">{error}</p>
-      ) : (
-        <p id="fileError" className="file-error" hidden>Please upload a valid PDF file.</p>
-      )}
+      ) : null}
     </div>
   );
 }
+

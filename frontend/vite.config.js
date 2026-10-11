@@ -4,4 +4,16 @@ import react from "@vitejs/plugin-react";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    port: 5173,
+    // Proxy API calls to the Express backend during development so the
+    // frontend can use relative "/api" URLs (no CORS headaches).
+    proxy: {
+      "/api": {
+        target: process.env.VITE_API_PROXY || "http://localhost:5000",
+        changeOrigin: true,
+      },
+    },
+  },
 });
+

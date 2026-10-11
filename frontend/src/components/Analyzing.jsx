@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 
 const TIMELINE = [
   { delay: 200, progress: 40, step: 0, label: "Extracting text…" },
-  { delay: 700, progress: 78, step: 1, label: "Matching skills…" },
-  { delay: 1150, progress: 100, step: 2, label: "Calculating score…" },
+  { delay: 700, progress: 78, step: 1, label: "Comparing to job description…" },
+  { delay: 1150, progress: 100, step: 2, label: "Calculating match score…" },
 ];
 
 export default function Analyzing({ fileName, onDone }) {
@@ -30,7 +30,7 @@ export default function Analyzing({ fileName, onDone }) {
     return () => timers.forEach(clearTimeout);
   }, [onDone]);
 
-  const stepLabels = ["Extracting text", "Matching skills", "Calculating score"];
+  const stepLabels = ["Extracting text", "Comparing to job description", "Calculating match score"];
 
   return (
     <div id="analyzingState" className="analyzing">
