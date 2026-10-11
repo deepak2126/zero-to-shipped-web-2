@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>0 to Shipped — Resume Parser</title>
+  <meta name="description" content="Upload your resume PDF and instantly see your score, the skills you have, and the skills you're missing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Decorative background -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#">
+        <span class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M13 2 4.5 13h6L9 22l9.5-11h-6L13 2Z" fill="url(#boltGrad)" />
+            <defs>
+              <linearGradient id="boltGrad" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#818cf8" />
+                <stop offset="1" stop-color="#22d3ee" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
+        <span class="brand-text">0<span class="brand-accent">to</span>Shipped</span>
+      </a>
+      <nav class="site-nav">
+        <a href="#how-it-works">How it works</a>
+        <a href="#parser" class="btn btn-ghost">Try the parser</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <div class="pill">
+          <span class="pill-dot"></span>
+          Mock parser · no sign-up required
+        </div>
+        <h1 class="hero-title">
+          Know your resume's <span class="gradient-text">real score</span> in seconds.
+        </h1>
+        <p class="hero-subtitle">
+          Drop in your resume PDF and instantly see a score out of 100, the skills
+          you already have, and the ones holding you back. Fast, private, and
+          completely free to try.
+        </p>
+        <!-- Parser card -->
+        <div class="parser" id="parser">
+          <!-- Upload state -->
+          <div id="uploadState" class="upload-zone" role="button" tabindex="0"
+               aria-label="Upload your resume PDF. Click to browse or drag and drop.">
+            <input type="file" id="fileInput" accept="application/pdf,.pdf" hidden />
+            <div class="upload-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 16V4m0 0L8 8m4-4 4 4" />
+                <path d="M20 16.5A3.5 3.5 0 0 0 18 10h-1A6 6 0 1 0 6 15" />
+              </svg>
+            </div>
+            <h3 class="upload-title">Drop your resume here</h3>
+            <p class="upload-hint">
+              or <span class="link">browse files</span> — PDF only, up to 10&nbsp;MB
+            </p>
+            <p id="fileError" class="file-error" hidden>Please upload a valid PDF file.</p>
+          </div>
+
+          <!-- Analyzing state -->
+          <div id="analyzingState" class="analyzing" hidden>
+            <div class="analyzing-file">
+              <span class="file-chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <path d="M14 2v6h6" />
+                </svg>
+                <span id="analyzingName">resume.pdf</span>
+              </span>
+            </div>
+            <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+            <p class="analyzing-label" id="analyzingLabel">Parsing document…</p>
+            <ul class="step-list" id="stepList">
+              <li data-step="extract"><span class="step-check"></span> Extracting text</li>
+              <li data-step="skills"><span class="step-check"></span> Matching skills</li>
+              <li data-step="score"><span class="step-check"></span> Calculating score</li>
+            </ul>
+          </div>
+          <!-- Results state -->
+          <div id="resultsState" class="results" hidden>
+            <div class="results-top">
+              <div class="score-wrap">
+                <svg class="score-ring" viewBox="0 0 120 120" aria-hidden="true">
+                  <circle class="ring-bg" cx="60" cy="60" r="52" />
+                  <circle class="ring-fill" id="scoreRing" cx="60" cy="60" r="52" />
+                </svg>
+                <div class="score-value">
+                  <span id="scoreNumber">0</span><span class="score-max">/100</span>
+                </div>
+              </div>
+              <div class="score-meta">
+                <span class="score-rating" id="scoreRating">Analyzing…</span>
+                <h3 class="score-headline" id="scoreHeadline">Your resume score</h3>
+                <p class="score-summary" id="scoreSummary">Here's how your resume stacks up.</p>
+                <button id="resetBtn" class="btn btn-secondary">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
+                    <path d="M3 3v5h5" />
+                  </svg>
+                  Analyze another resume
+                </button>
+              </div>
+            </div>
+
+            <div class="skills-grid">
+              <div class="skill-card skill-card--present">
+                <div class="skill-head">
+                  <span class="skill-badge skill-badge--present">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                  </span>
+                  <h4>Skills present</h4>
+                  <span class="skill-count" id="presentCount">0</span>
+                </div>
+                <div class="skill-tags" id="presentSkills"></div>
+              </div>
+
+              <div class="skill-card skill-card--missing">
+                <div class="skill-head">
+                  <span class="skill-badge skill-badge--missing">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M18 6 6 18M6 6l12 12" />
+                    </svg>
+                  </span>
+                  <h4>Skills missing</h4>
+                  <span class="skill-count" id="missingCount">0</span>
+                </div>
+                <div class="skill-tags" id="missingSkills"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- How it works -->
+    <section class="how" id="how-it-works">
+      <div class="container">
+        <h2 class="section-title">How it works</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <h3>Upload your PDF</h3>
+            <p>Drag and drop your resume. It never leaves your browser in this demo.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <h3>We parse it</h3>
+            <p>Our engine reads the text and matches it against in-demand skills.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <h3>Get your score</h3>
+            <p>See your score, what you've got, and exactly what to add next.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>Built for the <strong>0 to Shipped</strong> series.</span>
+      <span class="footer-note">This is a mock UI — results are simulated for demo purposes.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
